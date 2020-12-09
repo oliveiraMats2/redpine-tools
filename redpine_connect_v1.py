@@ -89,7 +89,6 @@ class AutoRedpine:
 
 
 if __name__ == "__main__":
-    # name = "GalaxyS10"
     name = "NET_2G0EE7DC"
     password = "4F0EE7DC"
     interface = "enp3s0f1"
