@@ -36,24 +36,14 @@ class AutoRedpine:
             pass
 
     def periodic_check(self, temp=5):
-        elapsed = 1
-        init = time.time()
-        while 1:
-            if elapsed % temp == 0:
-                if self.connection():
-                    break
-            elapsed = int(time.time() - init)
-
-    def verify_connect(self, url="http://192.168.0.1", timeout=15):  # gateway--url
-        try:
-            request = requests.get(url, timeout=timeout)
-            return True
-
-        except (requests.ConnectionError, requests.Timeout) as exception:
-            return False
+        if self.verify_network():
+            print('placa conectada no check periodic')
+        else:
+            print('placa desconectada')
+            self.connection()
 
     def find_network(self):
-        if self.verify_network():
+        if self.verify_network():#<-----verificou se existe a network
             print("network found")
         else:
             while 1:
@@ -62,17 +52,15 @@ class AutoRedpine:
                     break
             time.sleep(2)
 
-            print("--find network!--:", elapsed, "s")
+            print("--find network!--:")
 
     def periodic_re_connect(self):
-        init = time.time()
-
         while 1:  # infinite loop
-            if self.verify_connect() == True:
+            if self.verify_network() == True:
                 print("rede conectada, ta tranquilo!")
             else:
                 self.periodic_check()
-            time.sleep(5)
+            time.sleep(1)
 
     def run(self):
         # -----begin--------
@@ -85,12 +73,12 @@ class AutoRedpine:
         else:
             print("first connection failed")
             self.periodic_check()
-            self.periodic_re_connect()
+            
 
 
 if __name__ == "__main__":
-    name = "NET_2G0EE7DC"
-    password = "4F0EE7DC"
+    name = "GalaxyS10"
+    password = "bajc3169"
     interface = "enp3s0f1"
     execute = AutoRedpine(name, password, interface)
     execute.run()
