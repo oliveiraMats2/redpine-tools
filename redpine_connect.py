@@ -43,7 +43,7 @@ class AutoRedpine:
             self.connection()
 
     def find_network(self):
-        if self.verify_network():#<-----verificou se existe a network
+        if self.verify_network():  # <-----verificou se existe a network
             print("network found")
         else:
             while 1:
@@ -73,7 +73,6 @@ class AutoRedpine:
         else:
             print("first connection failed")
             self.periodic_check()
-            
 
 
 if __name__ == "__main__":
